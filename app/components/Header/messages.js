@@ -14,7 +14,7 @@ export default defineMessages({
   },
   collections: {
     id: `${scope}.collections`,
-    defaultMessage: 'Collections',
+    defaultMessage: 'Saved Restaurants',
   },
   title: {
     id: `${scope}.title`,

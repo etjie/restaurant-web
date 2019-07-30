@@ -8,33 +8,49 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
-import List from 'components/List';
-import ListItem from 'components/ListItem';
+import RestaurantItem from 'components/RestaurantItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
+import Wrapper from './Wrapper';
+import Table from './Table';
 
 function RestaurantList({ loading, error, restaurants }) {
-  console.log(`loading Restaurant List :  ${restaurants}`);
+  let content = <div />;
+
   if (loading) {
-    return <List component={LoadingIndicator} />;
+    content = (
+      <Wrapper>
+        <LoadingIndicator />
+      </Wrapper>
+    );
+    return content;
   }
 
   if (error !== false) {
-    const ErrorComponent = () => (
-      <ListItem item="Something went wrong, please try again!" />
-    );
-    return <List component={ErrorComponent} />;
+    content = <Wrapper>Something went wrong, please try again!</Wrapper>;
   }
 
-  if (restaurants !== false) {
-    restaurants.map(item => (
-      <ListItem key={`restaurant-${item.name}`} item={item.name} />
+  if (restaurants && restaurants !== false) {
+    const list = restaurants.map(item => (
+      <RestaurantItem key={item.restaurant_id} item={item} />
     ));
+
+    content = (
+      <Table>
+        <thead>
+          <tr>
+            <td>Restaurant Name</td>
+            <td>Open Hours</td>
+          </tr>
+        </thead>
+        <tbody>{list}</tbody>
+      </Table>
+    );
   }
 
-  return null;
+  return content;
 }
 
 RestaurantList.propTypes = {

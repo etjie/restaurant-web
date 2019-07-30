@@ -40,10 +40,6 @@ export function RestaurantListPage({
 
   useEffect(() => {
     dispatch(loadRestaurants());
-    console.log('loaded');
-    console.log(`Loading : ${loading}`);
-    console.log(`Error : ${error}`);
-    console.log(restaurants);
   }, []);
 
   const restaurantsListProps = {
@@ -54,13 +50,11 @@ export function RestaurantListPage({
 
   return (
     <div>
-      <FormattedMessage {...messages.header} />
-      {/* <div>{`Dump Loading : ${loading}`}</div>
-      <div>{`Dump Error : ${error}`}</div> */}
-      {/* <div>{`Dump Restaurant : ${JSON.stringify(restaurants, '', 2)}`}</div> */}
-      {/* <div>{`Props : ${JSON.stringify(restaurantsListProps)}`}</div> */}
-      <Button onClick={onClickButton}>Load</Button>
+      {/* <FormattedMessage {...messages.header} /> */}
       <RestaurantList {...restaurantsListProps} />
+      <Button onClick={onClickButton}>
+        <FormattedMessage {...messages.refresh} />
+      </Button>
     </div>
   );
 }

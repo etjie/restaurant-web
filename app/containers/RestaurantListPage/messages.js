@@ -13,4 +13,9 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the RestaurantListPage container!',
   },
+
+  refresh: {
+    id: `${scope}.refresh`,
+    defaultMessage: 'Refresh',
+  },
 });
