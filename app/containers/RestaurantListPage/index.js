@@ -20,20 +20,24 @@ import {
   makeSelectRestaurants,
   makeSelectLoading,
   makeSelectError,
+  makeSelectCheckedRestaurants,
 } from './selectors';
 // import { makeSelectRestaurants } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { loadRestaurants } from './actions';
+import { loadRestaurants, saveRestaurants, updateChecked } from './actions';
 
 const key = 'restaurantList';
 export function RestaurantListPage({
   loading,
   error,
   restaurants,
+  checkedRestaurants,
   onClickButton,
+  onClickSave,
   dispatch,
+  onChangeCheckedList,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -46,6 +50,9 @@ export function RestaurantListPage({
     loading,
     error,
     restaurants,
+    checkedRestaurants,
+    onClickSave,
+    onChangeCheckedList,
   };
 
   return (
@@ -67,19 +74,25 @@ RestaurantListPage.propTypes = {
     PropTypes.array,
     PropTypes.bool,
   ]),
+  checkedRestaurants: PropTypes.array,
   dispatch: PropTypes.func.isRequired,
   onClickButton: PropTypes.func.isRequired,
+  onClickSave: PropTypes.func.isRequired,
+  onChangeCheckedList: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   restaurants: makeSelectRestaurants(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
+  checkedRestaurants: makeSelectCheckedRestaurants(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onClickButton: () => dispatch(loadRestaurants()),
+    onClickSave: () => dispatch(saveRestaurants()),
+    onChangeCheckedList: data => dispatch(updateChecked(data)),
     dispatch,
   };
 }

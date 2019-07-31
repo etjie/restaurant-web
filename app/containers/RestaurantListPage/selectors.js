@@ -33,4 +33,15 @@ const makeSelectError = () =>
     substate => substate.error,
   );
 
-export { makeSelectRestaurants, makeSelectLoading, makeSelectError };
+const makeSelectCheckedRestaurants = () =>
+  createSelector(
+    selectRestaurantsDomain,
+    substate => substate.checkedRestaurants,
+  );
+
+export {
+  makeSelectRestaurants,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectCheckedRestaurants,
+};

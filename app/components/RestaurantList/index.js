@@ -11,12 +11,20 @@ import PropTypes from 'prop-types';
 import RestaurantItem from 'components/RestaurantItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
+import { FormattedMessage } from 'react-intl';
+import Button from 'components/Button';
+import messages from './messages';
 import Wrapper from './Wrapper';
 import Table from './Table';
 
-function RestaurantList({ loading, error, restaurants }) {
+function RestaurantList({
+  loading,
+  error,
+  restaurants,
+  checkedRestaurants,
+  onClickSave,
+  onChangeCheckedList,
+}) {
   let content = <div />;
 
   if (loading) {
@@ -25,24 +33,41 @@ function RestaurantList({ loading, error, restaurants }) {
         <LoadingIndicator />
       </Wrapper>
     );
-    return content;
   }
 
   if (error !== false) {
-    content = <Wrapper>Something went wrong, please try again!</Wrapper>;
+    content = (
+      <Wrapper>
+        <FormattedMessage {...messages.errorMessage} />
+      </Wrapper>
+    );
   }
 
   if (restaurants && restaurants !== false) {
     const list = restaurants.map(item => (
-      <RestaurantItem key={item.restaurant_id} item={item} />
+      <RestaurantItem
+        key={item.restaurant_id}
+        item={item}
+        checkedRestaurants={checkedRestaurants}
+        changeCheckedList={onChangeCheckedList}
+      />
     ));
 
     content = (
       <Table>
         <thead>
           <tr>
-            <td>Restaurant Name</td>
-            <td>Open Hours</td>
+            <td>
+              <FormattedMessage {...messages.restaurantName} />
+            </td>
+            <td>
+              <FormattedMessage {...messages.openHours} />
+            </td>
+            <td>
+              <Button onClick={onClickSave}>
+                <FormattedMessage {...messages.action} />
+              </Button>
+            </td>
           </tr>
         </thead>
         <tbody>{list}</tbody>
@@ -57,6 +82,9 @@ RestaurantList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
   restaurants: PropTypes.any,
+  checkedRestaurants: PropTypes.array,
+  onClickSave: PropTypes.func.isRequired,
+  onChangeCheckedList: PropTypes.func,
 };
 
 export default RestaurantList;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Table = styled.table`
   margin: 15px 0;
+  width: 100%;
 
   td {
     padding: 10px 15px;
@@ -13,6 +14,9 @@ const Table = styled.table`
     }
     td {
       background-color: #efefef;
+      div {
+        margin: 0;
+      }
     }
   }
 `;
