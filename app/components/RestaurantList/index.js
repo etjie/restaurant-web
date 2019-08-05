@@ -16,6 +16,7 @@ import Button from 'components/Button';
 import messages from './messages';
 import Wrapper from './Wrapper';
 import Table from './Table';
+import Form from './Form';
 
 function RestaurantList({
   loading,
@@ -24,7 +25,27 @@ function RestaurantList({
   checkedRestaurants,
   onClickSave,
   onChangeCheckedList,
+  isShowForm,
+  onToggleForm,
 }) {
+  function handleSubmit(event) {
+    event.preventDefault();
+    const name = event.target[0].value;
+    const checkedArray = checkedRestaurants;
+    if (name && checkedArray.length > 0) {
+      const payload = {
+        collection_name: name,
+        restaurants: checkedRestaurants,
+      };
+      onClickSave(payload);
+    } else {
+      alert(
+        'Collection Name cannot be empty and at least 1 restaurant are selected',
+      );
+    }
+    onToggleForm();
+  }
+
   let content = <div />;
 
   if (loading) {
@@ -64,9 +85,17 @@ function RestaurantList({
               <FormattedMessage {...messages.openHours} />
             </td>
             <td>
-              <Button onClick={onClickSave}>
-                <FormattedMessage {...messages.action} />
-              </Button>
+              <div className={isShowForm ? 'hidden' : ''}>
+                <Button onClick={onToggleForm}>
+                  <FormattedMessage {...messages.action} />
+                </Button>
+              </div>
+              <div className={isShowForm ? '' : 'hidden'}>
+                <Form onSubmit={handleSubmit}>
+                  <input type="text" placeholder="Collection Name" />
+                  <Button type="submit">Save</Button>
+                </Form>
+              </div>
             </td>
           </tr>
         </thead>
@@ -85,6 +114,8 @@ RestaurantList.propTypes = {
   checkedRestaurants: PropTypes.array,
   onClickSave: PropTypes.func.isRequired,
   onChangeCheckedList: PropTypes.func,
+  isShowForm: PropTypes.bool.isRequired,
+  onToggleForm: PropTypes.func.isRequired,
 };
 
 export default RestaurantList;

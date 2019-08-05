@@ -39,9 +39,16 @@ const makeSelectCheckedRestaurants = () =>
     substate => substate.checkedRestaurants,
   );
 
+const makeSelectIsShowForm = () =>
+  createSelector(
+    selectRestaurantsDomain,
+    substate => substate.isShowForm,
+  );
+
 export {
   makeSelectRestaurants,
   makeSelectLoading,
   makeSelectError,
   makeSelectCheckedRestaurants,
+  makeSelectIsShowForm,
 };

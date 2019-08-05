@@ -32,7 +32,7 @@ function RestaurantItem(props) {
     <tr>
       <td>{item.name}</td>
       <td>{item.hours}</td>
-      <td>
+      <td className="center">
         <input
           type="checkbox"
           value={item.restaurant_id}

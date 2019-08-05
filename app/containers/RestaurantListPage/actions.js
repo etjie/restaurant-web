@@ -9,7 +9,10 @@ import {
   LOAD_RESTAURANTS_SUCCESS,
   LOAD_RESTAURANTS_ERROR,
   SAVE_RESTAURANTS,
+  SAVE_RESTAURANTS_SUCCESS,
+  SAVE_RESTAURANTS_ERROR,
   UPDATE_CHECKED,
+  TOGGLE_FORM,
 } from './constants';
 
 export const loadRestaurants = () => ({
@@ -26,11 +29,24 @@ export const loadRestaurantsError = error => ({
   error,
 });
 
-export const saveRestaurants = () => ({
+export const saveRestaurants = payload => ({
   type: SAVE_RESTAURANTS,
+  payload,
+});
+
+export const saveRestaurantsSuccess = () => ({
+  type: SAVE_RESTAURANTS_SUCCESS,
+});
+
+export const saveRestaurantsError = () => ({
+  type: SAVE_RESTAURANTS_ERROR,
 });
 
 export const updateChecked = checked => ({
   type: UPDATE_CHECKED,
   checked,
+});
+
+export const toggleForm = () => ({
+  type: TOGGLE_FORM,
 });

@@ -5,6 +5,9 @@ const Table = styled.table`
   width: 100%;
 
   td {
+    &.center {
+      text-align: center;
+    }
     padding: 10px 15px;
     border: 2px solid #d9d9d9;
   }
@@ -18,6 +21,9 @@ const Table = styled.table`
         margin: 0;
       }
     }
+  }
+  .hidden {
+    display: none;
   }
 `;
 

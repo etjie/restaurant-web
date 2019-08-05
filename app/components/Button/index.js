@@ -30,6 +30,14 @@ function Button(props) {
     );
   }
 
+  if (props.type) {
+    button = (
+      <StyledButton type={props.type}>
+        {Children.toArray(props.children)}
+      </StyledButton>
+    );
+  }
+
   return <Wrapper>{button}</Wrapper>;
 }
 
@@ -38,6 +46,7 @@ Button.propTypes = {
   href: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
+  type: PropTypes.string,
 };
 
 export default Button;
